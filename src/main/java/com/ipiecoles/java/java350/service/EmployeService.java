@@ -102,6 +102,13 @@ public class EmployeService {
             throw new EmployeException("Le matricule " + matricule + " n'existe pas !");
         }
 
+        getPerformance(CaTraite, objectifCa )
+        //Affectation et sauvegarde
+        employe.setPerformance(performance);
+        employeRepository.save(employe);
+    }
+
+    public Integer getPerformance(Long caTraite, Long objectifCa){
         Integer performance = Entreprise.PERFORMANCE_BASE;
         //Cas 2
         if(caTraite >= objectifCa*0.8 && caTraite < objectifCa*0.95){
@@ -126,9 +133,6 @@ public class EmployeService {
         if(performanceMoyenne != null && performance > performanceMoyenne){
             performance++;
         }
-
-        //Affectation et sauvegarde
-        employe.setPerformance(performance);
-        employeRepository.save(employe);
+        return performance;
     }
 }
